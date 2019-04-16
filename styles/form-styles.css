@@ -1,0 +1,25 @@
+h5 {
+    font-size: 1.1em;
+}
+.disclaimer {
+    background-color: #E0E0E0;
+}
+
+@media only screen and (min-width: 768px) {
+    button {
+        position: absolute;
+        bottom: 3%;
+        right: 10%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    button {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .bio {
+        margin-top: 15px;
+    }
+}

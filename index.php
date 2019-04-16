@@ -13,6 +13,8 @@ error_reporting(E_ALL);
 //require autoload file
 require_once("vendor/autoload.php");
 
+include('views/includes/header.html');
+
 //create an instance of the base class
 $f3 = Base::instance();
 
@@ -25,6 +27,26 @@ $f3->route('GET /', function() {
     $view = new Template();
     echo $view->render('views/home.html');
 });
+
+$f3->route('GET /info', function() {
+    //display a view
+    $view = new Template();
+    echo $view->render('views/sign-up/personal-info.html');
+});
+
+$f3->route('GET /profile', function() {
+    //display a view
+    $view = new Template();
+    echo $view->render('views/sign-up/profile.html');
+});
+
+$f3->route('GET /interests', function() {
+    //display a view
+    $view = new Template();
+    echo $view->render('views/sign-up/interests.html');
+});
+
+include('views/includes/footer.html');
 
 //run fat-free
 $f3->run();
