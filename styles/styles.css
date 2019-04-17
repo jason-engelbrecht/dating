@@ -6,3 +6,7 @@
 .container-fluid {
     border-radius: 5px;
 }
+
+.home-link:hover {
+    text-decoration: none !important;
+}
