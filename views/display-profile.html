@@ -1,8 +1,8 @@
 <!--
 Jason Engelbrecht
-Date
-URL
-Description
+4.17.2019
+https://jengelbrecht.greenriverdev.com/it328/dating/
+Display profile information after sign up
 -->
 <include href="views/includes/header.html"/>
 <div class="container p-4 px-5 pb-5">
@@ -10,29 +10,22 @@ Description
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <p class="text-center"><i class="fas fa-user-circle fa-10x"></i></p>
-                <h3 class="text-center mb-4">Jane Doe</h3>
+                <h3 class="text-center mb-4">{{ @SESSION.fname }} {{ @SESSION.lname }}</h3>
                 <h5>Biography</h5>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    {{ @SESSION.bio }}
                 </p>
             </div>
 
-            <div class="col-lg-6 col-md-12 col-sm-12 mt-5 mt-sm-3">
+           <div class="col-lg-6 col-md-12 col-sm-12 mt-5 mt-sm-3">
                 <ul class="list-group">
-                    <li class="list-group-item bg-light">Gender: </li>
-                    <li class="list-group-item bg-light">Age: </li>
-                    <li class="list-group-item bg-light">Phone: </li>
-                    <li class="list-group-item bg-light">Email: </li>
-                    <li class="list-group-item bg-light">State</li>
-                    <li class="list-group-item bg-light">Seeking: </li>
-                    <li class="list-group-item bg-light">Interests: </li>
+                    <li class="list-group-item bg-light">Gender: {{ @SESSION.gender }}</li>
+                    <li class="list-group-item bg-light">Age: {{ @SESSION.age }}</li>
+                    <li class="list-group-item bg-light">Phone: {{ @SESSION.phone }}</li>
+                    <li class="list-group-item bg-light">Email: {{ @SESSION.email }}</li>
+                    <li class="list-group-item bg-light">State: {{ @SESSION.state }}</li>
+                    <li class="list-group-item bg-light">Seeking: {{ @SESSION.seeking }}</li>
+                    <li class="list-group-item bg-light">Interests: {{ @SESSION.interests}}</li>
                 </ul>
             </div>
         </div>

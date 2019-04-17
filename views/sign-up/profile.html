@@ -1,8 +1,8 @@
 <!--
 Jason Engelbrecht
-Date
-URL
-Description
+4.17.2019
+https://jengelbrecht.greenriverdev.com/it328/dating/
+Gather profile information
 -->
 <include href="views/includes/header.html"/>
 <div class="container-fluid p-4 px-5 pb-5">
@@ -11,7 +11,7 @@ Description
         <h1 class="mb-3">Profile</h1>
         <hr class="my-4">
 
-        <form method="post" action="" class>
+        <form method="post" action="interests" class>
             <div class="row">
 
                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -80,14 +80,14 @@ Description
 
                     <h5><label>Seeking</label></h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="seekMale"
-                               id="seekMale" value="seekMale">
-                        <label class="form-check-label" for="seekMale">Male</label>
+                        <input class="form-check-input" type="radio" name="seeking"
+                               id="male" value="Male">
+                        <label class="form-check-label" for="Male">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="seekFemale"
-                               id="seekFemale" value="seekFemale">
-                        <label class="form-check-label" for="seekFemale">Female</label>
+                        <input class="form-check-input" type="radio" name="seeking"
+                               id="Female" value="Female">
+                        <label class="form-check-label" for="Female">Female</label>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@ Description
 
                     <div class="form-group bio">
                         <h5><label for="bio">Biography</label></h5>
-                        <textarea class="form-control" id="bio" rows="4"></textarea>
+                        <textarea class="form-control" id="bio" rows="4" name="bio"></textarea>
                     </div>
 
                     <button class="btn btn-primary text-uppercase form-btn" type="submit" name="submit">Next ></button>

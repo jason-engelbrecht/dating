@@ -1,8 +1,8 @@
 <!--
 Jason Engelbrecht
-Date
-URL
-Description
+4.17.2019
+https://jengelbrecht.greenriverdev.com/it328/dating/
+Gather indoor and outdoor interests
 -->
 <include href="views/includes/header.html"/>
 <div class="container-fluid p-4 px-5 pb-5">
@@ -11,7 +11,7 @@ Description
         <h1 class="mb-3">Interests</h1>
         <hr class="my-4">
 
-        <form method="post" action="" class>
+        <form method="post" action="display-profile">
             <div class="row mb-2">
                 <div class="col-lg-10 col-md-10 col-sm-12">
 
@@ -20,48 +20,48 @@ Description
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="netflix" value="Netflix"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="netflix">Netflix</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="movies" value="Movies"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="movies">Movies</label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="cooking" value="Cooking"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="cooking">Cooking</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="tug-of-war" value="Tug-of-war"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="tug-of-war">Tug-of-war</label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="puzzles" value="Puzzles"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="puzzles">Puzzles</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="reading" value="Reading"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="reading">Reading</label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="boardgames" value="Boardgames"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="boardgames">Boardgames</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="video-games" value="Video Games"
-                                       name="indoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="video-games">Video Games</label>
                             </div>
                         </div>
@@ -72,48 +72,48 @@ Description
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="walking" value="Walking"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="walking">Walking</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="hiking" value="Hiking"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="hiking">Hiking</label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="biking" value="Biking"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="biking">Biking</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="climbing" value="Climbing"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="Climbing">Climbing</label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="swimming" value="Swimming"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="swimming">Swimming</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="beach-walks" value="Beach Walks"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="beach-walks">Beach Walks</label>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="form-check form-check">
-                                <input class="form-check-input" type="checkbox" id="fetch" value="fetch"
-                                       name="outdoor_interests[]">
+                                <input class="form-check-input" type="checkbox" id="fetch" value="Fetch"
+                                       name="interests[]">
                                 <label class="form-check-label" for="fetch">Fetch</label>
                             </div>
                             <div class="form-check form-check">
                                 <input class="form-check-input" type="checkbox" id="dog-park" value="Dog Park"
-                                       name="outdoor_interests[]">
+                                       name="interests[]">
                                 <label class="form-check-label" for="dog-park">Dog Park</label>
                             </div>
                         </div>
