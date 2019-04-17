@@ -6,7 +6,7 @@ h5 {
 }
 
 @media only screen and (min-width: 768px) {
-    button {
+    .form-btn {
         position: absolute;
         bottom: 3%;
         right: 10%;
@@ -14,7 +14,7 @@ h5 {
 }
 
 @media only screen and (max-width: 768px) {
-    button {
+    .form-btn {
         width: 100%;
         margin-top: 20px;
     }

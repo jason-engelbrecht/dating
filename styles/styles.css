@@ -3,9 +3,10 @@
     border-radius: 5px;
 }
 
-.container-fluid {
+.container-fluid, .container {
     border-radius: 5px;
 }
+
 
 .home-link:hover {
     text-decoration: none !important;
