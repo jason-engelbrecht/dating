@@ -18,6 +18,14 @@ require_once("vendor/autoload.php");
 //create an instance of the base class
 $f3 = Base::instance();
 
+$f3->set('indoorInterests', array('Netflix', 'Movies', 'Puzzles',
+                                  'Reading', 'Cooking', 'Tug-of-war',
+                                  'Boardgames', 'Video Games'));
+
+$f3->set('outdoorInterests', array('Walking', 'Hiking', 'Swimming',
+                                   'Beach Walks', 'Biking', 'Climbing',
+                                   'Fetch', 'Dog Park'));
+
 //turn on fat-free error reporting
 $f3->set('DEBUG', 3);
 
