@@ -57,11 +57,11 @@ function validEmail($email) {
  * @param String interests
  * @return boolean
  */
-function validOutdoor($interests) {
+function validInterests($interests) {
     foreach ($interests as $interest) {
         if (!in_array($interest, $interests)) {
             return false;
         }
     }
     return true;
-}
+} //only did 1 interests validation function to avoid unnecessary complexity

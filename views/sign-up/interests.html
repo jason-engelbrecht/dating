@@ -11,11 +11,14 @@ Gather indoor and outdoor interests
         <h1 class="mb-3">Interests</h1>
         <hr class="my-4">
 
-        <form method="post" action="display-profile">
+        <form method="post" action="">
             <div class="row mb-2">
                 <div class="col-lg-10 col-md-10 col-sm-12">
 
                     <h5><label>In-door Interests</label></h5>
+                    <check if="{{ isset(@errors['interests']) }}">
+                        <em class="error">{{ @errors['interests'] }}</em>
+                    </check>
                     <div class="row ml-3">
                         <repeat group="{{ @indoorInterests }}" value="{{ @indoorInterest }}" counter="{{ @ctr }}">
                             <check if="{{ @ctr%2!=0 }}">
@@ -25,7 +28,10 @@ Gather indoor and outdoor interests
                                 <input class="form-check-input" type="checkbox"
                                        id="{{ @indoorInterest }}"
                                        value="{{ @indoorInterest }}"
-                                       name="interests[]">
+                                       name="interests[]"
+                                        <check if="{{in_array(@indoorInterest, @interestsCheck) }}">
+                                            checked="checked"
+                                        </check>>
                                 <label class="form-check-label"
                                        for="{{ @indoorInterest }}">
                                        {{ @indoorInterest }}
@@ -38,6 +44,9 @@ Gather indoor and outdoor interests
                     </div>
 
                     <h5 class="mt-3"><label>Out-door Interests</label></h5>
+                    <check if="{{ isset(@errors['interests']) }}">
+                        <em class="error">{{ @errors['interests'] }}</em>
+                    </check>
                     <div class="row ml-3">
                         <repeat group="{{ @outdoorInterests }}" value="{{ @outdoorInterest }}" counter="{{ @ctr }}">
                             <check if="{{ @ctr%2!=0 }}">
@@ -47,10 +56,13 @@ Gather indoor and outdoor interests
                                 <input class="form-check-input" type="checkbox"
                                        id="{{ @outdoorInterest }}"
                                        value="{{ @outdoorInterest }}"
-                                       name="interests[]">
+                                       name="interests[]"
+                                        <check if="{{in_array(@outdoorInterest, @interestsCheck) }}">
+                                            checked="checked"
+                                        </check>>
                                 <label class="form-check-label"
                                        for="{{ @outdoorInterest }}">
-                                    {{ @outdoorInterest }}
+                                       {{ @outdoorInterest }}
                                 </label>
                             </div>
                             <check if="{{ @ctr%2==0 }}">

@@ -11,14 +11,18 @@ Gather profile information
         <h1 class="mb-3">Profile</h1>
         <hr class="my-4">
 
-        <form method="post" action="interests" class>
+        <form method="post" action="" class>
             <div class="row mb-3">
 
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group">
                         <h5><label for="email">Email *</label></h5>
+                        <check if="{{ isset(@errors['email']) }}">
+                            <em class="error">{{ @errors['email'] }}</em>
+                        </check>
                         <input type="text" class="form-control" id="email" name="email"
-                               placeholder="myemail@gmail.com" required>
+                               placeholder="myemail@gmail.com"
+                               value="{{ @SESSION.email }}">
                     </div>
 
                     <div class="form-group">
@@ -80,13 +84,17 @@ Gather profile information
 
                     <h5><label>Seeking</label></h5>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="seeking"
-                               id="male" value="Male">
+                        <input class="form-check-input" type="radio" name="seeking" id="male" value="Male"
+                        <check if="{{isset(@SESSION.seeking) && (@SESSION.seeking == 'Male') }}">
+                        checked="checked"
+                        </check>>
                         <label class="form-check-label" for="male">Male</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="seeking"
-                               id="female" value="Female">
+                        <input class="form-check-input" type="radio" name="seeking" id="female" value="Female"
+                        <check if="{{isset(@SESSION.seeking) && (@SESSION.seeking == 'Female') }}">
+                            checked="checked"
+                        </check>>
                         <label class="form-check-label" for="female">Female</label>
                     </div>
                 </div>
@@ -95,7 +103,11 @@ Gather profile information
 
                     <div class="form-group bio">
                         <h5><label for="bio">Biography</label></h5>
-                        <textarea class="form-control" id="bio" rows="4" name="bio"></textarea>
+                        <textarea class="form-control" id="bio" rows="4" name="bio">
+                            <check if="isset(@SESSION.bio)">
+                                {{ @SESSION.bio }}
+                            </check>
+                        </textarea>
                     </div>
 
                     <button class="btn btn-primary text-uppercase form-btn" type="submit" name="submit">Next ></button>
