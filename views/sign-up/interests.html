@@ -14,10 +14,11 @@ Gather indoor and outdoor interests
         <form method="post" action="">
             <div class="row mb-2">
                 <div class="col-lg-10 col-md-10 col-sm-12">
+                    <label><input type="hidden" name="hidden" value="hidden"></label>
 
                     <h5><label>In-door Interests</label></h5>
                     <check if="{{ isset(@errors['interests']) }}">
-                        <em class="error">{{ @errors['interests'] }}</em>
+                        <em class="text-danger">{{ @errors['interests'] }}</em>
                     </check>
                     <div class="row ml-3">
                         <repeat group="{{ @indoorInterests }}" value="{{ @indoorInterest }}" counter="{{ @ctr }}">
@@ -36,7 +37,7 @@ Gather indoor and outdoor interests
                                        for="{{ @indoorInterest }}">
                                        {{ @indoorInterest }}
                                 </label>
-                            </div
+                            </div>
                             <check if="{{ @ctr%2==0 }}">
                                 </div>
                             </check>
@@ -45,7 +46,7 @@ Gather indoor and outdoor interests
 
                     <h5 class="mt-3"><label>Out-door Interests</label></h5>
                     <check if="{{ isset(@errors['interests']) }}">
-                        <em class="error">{{ @errors['interests'] }}</em>
+                        <em class="text-danger">{{ @errors['interests'] }}</em>
                     </check>
                     <div class="row ml-3">
                         <repeat group="{{ @outdoorInterests }}" value="{{ @outdoorInterest }}" counter="{{ @ctr }}">

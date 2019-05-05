@@ -17,30 +17,30 @@ Gather personal information
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <div class="form-group">
                         <h5><label for="fname">First Name *</label></h5>
-                        <check if="{{ isset(@errors['fname']) }}">
-                            <em class="error">{{ @errors['fname'] }}</em>
+                        <check if="{{ isset(@errors['fname']) && !isset(@SESSION.fname) }}">
+                            <em class="text-danger">{{ @errors['fname'] }}</em>
                         </check>
                         <input type="text" class="form-control" id="fname" name="fname"
                                placeholder="Please enter your first name"
-                               value="{{ @SESSION.fname }}">
+                               value="{{ @fname }}" required>
                     </div>
                     <div class="form-group">
                         <h5><label for="lname">Last Name *</label></h5>
                         <check if="{{ isset(@errors['lname']) }}">
-                            <em class="error">{{ @errors['lname'] }}</em>
+                            <em class="text-danger">{{ @errors['lname'] }}</em>
                         </check>
                         <input type="text" class="form-control" id="lname" name="lname"
                                placeholder="Please enter your last name"
-                               value="{{ @SESSION.lname }}">
+                               value="{{ @lname }}" required>
                     </div>
                     <div class="form-group">
                         <h5><label for="age">Age *</label></h5>
                         <check if="{{ isset(@errors['age']) }}">
-                            <em class="error">{{ @errors['age'] }}</em>
+                            <em class="text-danger">{{ @errors['age'] }}</em>
                         </check>
                         <input type="text" class="form-control" id="age" name="age"
                                placeholder="Please enter your age"
-                               value="{{ @SESSION.age }}">
+                               value="{{ @age }}" required>
                     </div>
 
                     <h5><label>Gender</label></h5>
@@ -62,11 +62,11 @@ Gather personal information
                     <div class="form-group mt-3">
                         <h5><label for="phone">Phone number *</label></h5>
                         <check if="{{ isset(@errors['phone']) }}">
-                            <em class="error">{{ @errors['phone'] }}</em>
+                            <em class="text-danger">{{ @errors['phone'] }}</em>
                         </check>
                         <input type="text" class="form-control" id="phone" name="phone"
                                placeholder="(123) 456-7890"
-                               value="{{ @SESSION.phone }}">
+                               value="{{ @phone }}" required>
                     </div>
 
                 </div>

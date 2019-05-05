@@ -12,7 +12,7 @@ Validation functions.
  * @return boolean
 */
 function validName($name) {
-    return (!empty($string) && ctype_alpha($name));
+    return (!empty($name) && ctype_alpha($name));
 }
 
 /**
@@ -30,13 +30,7 @@ function validAge($age) {
  * @return boolean
  */
 function validPhone($phone) {
-    $phone = trim($phone);
-    //1 pass, 0 fail
-    $check = preg_match("^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1
-    [02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?
-    ([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$
-    ", $phone); //source: https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation
-    return (!empty($age) && $check == 1);
+    return (!empty($phone));
 }
 
 /**
