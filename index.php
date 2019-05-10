@@ -10,11 +10,11 @@ Dog dating site, route to views/home.html.
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
-
 //require autoload file and validation functions
 require_once("vendor/autoload.php");
 require('model/validation-functions.php');
+
+session_start();
 
 //create an instance of the base class
 $f3 = Base::instance();
