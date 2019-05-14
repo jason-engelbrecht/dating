@@ -20,13 +20,14 @@ session_start();
 $f3 = Base::instance();
 
 //set arrays
-$f3->set('indoorInterests', array('Netflix', 'Movies', 'Puzzles',
-                                  'Reading', 'Cooking', 'Tug-of-war',
-                                  'Boardgames', 'Video Games'));
-
-$f3->set('outdoorInterests', array('Walking', 'Hiking', 'Swimming',
-                                   'Beach Walks', 'Biking', 'Climbing',
-                                   'Fetch', 'Dog Park'));
+$indoorInterests = array('Netflix', 'Movies', 'Puzzles',
+                         'Reading', 'Cooking', 'Tug-of-war',
+                         'Boardgames', 'Video Games');
+$outdoorInterests = array('Walking', 'Hiking', 'Swimming',
+                          'Beach Walks', 'Biking', 'Climbing',
+                          'Fetch', 'Dog Park');
+$f3->set('indoorInterests', $indoorInterests);
+$f3->set('outdoorInterests', $outdoorInterests);
 
 $f3->set('states', array('Alabama','Alaska','Arizona','Arkansas','California',
                          'Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia',
@@ -58,7 +59,7 @@ $f3->route('GET|POST /info', function($f3) {
         $fname = $_POST['fname'];
         $f3->set('fname', $fname);
         if(validName($fname)) {
-            $_SESSION['fname'] = $fname;
+            define('FNAME', $fname);
         }
         else {
             $f3->set("errors['fname']", "Please enter an alphabetic first name");
@@ -70,7 +71,7 @@ $f3->route('GET|POST /info', function($f3) {
         $lname = $_POST['lname'];
         $f3->set('lname', $lname);
         if(validName($lname)) {
-            $_SESSION['lname'] = $lname;
+            define('LNAME', $lname);
         }
         else {
             $f3->set("errors['lname']", "Please enter an alphabetic last name");
@@ -82,7 +83,7 @@ $f3->route('GET|POST /info', function($f3) {
         $age = $_POST['age'];
         $f3->set('age', $age);
         if(validAge($age)) {
-            $_SESSION['age'] = $age;
+            define('AGE', $age);
         }
         else {
             $f3->set("errors['age']", "Please enter a numeric age");
@@ -94,7 +95,7 @@ $f3->route('GET|POST /info', function($f3) {
         $phone = $_POST['phone'];
         $f3->set('phone', $phone);
         if(validPhone($phone)) {
-            $_SESSION['phone'] = $phone;
+            define('PHONE', $phone);
         }
         else {
             $f3->set("errors['phone']", "Please enter a valid phone number");
@@ -102,9 +103,28 @@ $f3->route('GET|POST /info', function($f3) {
     }
 
     //get gender
-    $_SESSION['gender'] = $_POST['gender'];
+    if(isset($_POST['gender'])) {
+        define('GENDER', $_POST['gender']);
+        $_SESSION['gender'] = $_POST['gender'];
+    }
+    else {
+        define('GENDER', 'Unselected');
+    }
 
-    if(isset($_SESSION['fname']) && isset($_SESSION['lname']) && isset($_SESSION['age']) && isset($_SESSION['phone'])) {
+    //for sticky form
+    $_SESSION['premium'] = $_POST['premium'];
+
+    //if all required constants are defined
+    if(defined('FNAME') && defined('LNAME') && defined('AGE') && defined('PHONE')) {
+        //premium member
+        if(isset($_POST['premium'])) {
+            $_SESSION['member'] = new PremiumMember(FNAME, LNAME, AGE, PHONE, GENDER);
+        }
+        //non-premium
+        else {
+            $_SESSION['member'] = new Member(FNAME, LNAME, AGE, PHONE, GENDER);
+        }
+        //continue
         $f3->reroute('/profile');
     }
 
@@ -122,20 +142,54 @@ $f3->route('GET|POST /profile', function($f3) {
         $email = $_POST['email'];
         $f3->set('email', $email);
         if(validEmail($email)) {
-            $_SESSION['email'] = $email;
+            define('EMAIL', $email);
         }
         else {
             $f3->set("errors['email']", "Please enter a valid email address");
         }
     }
 
-    //get rest of form data
-    $_SESSION['state'] = $_POST['state'];
-    $_SESSION['seeking'] = $_POST['seeking'];
-    $_SESSION['bio'] = trim($_POST['bio']);
+    //get state
+    if(isset($_POST['state'])) {
+        define('STATE', $_POST['state']);
+        $_SESSION['state'] = $_POST['state'];
+    }
+    else {
+        define('STATE', 'Unselected');
+    }
 
-    if(isset($_SESSION['email'])) {
-        $f3->reroute('/interests');
+    //get seeking
+    if(isset($_POST['seeking'])) {
+        define('SEEKING', $_POST['seeking']);
+        $_SESSION['seeking'] = $_POST['seeking'];
+    }
+    else {
+        define('SEEKING', 'Unselected');
+    }
+
+    //get bio
+    if(isset($_POST['bio'])) {
+        define('BIO', $_POST['bio']);
+        $_SESSION['bio'] = $_POST['bio'];
+    }
+    else {
+        define('BIO', 'No bio yet');
+    }
+
+    if(defined('EMAIL')) {
+        $member = $_SESSION['member'];
+        $member->setEmail(EMAIL);
+        $member->setState(STATE);
+        $member->setSeeking(SEEKING);
+        $member->setBio(BIO);
+        $_SESSION['member'] = $member;
+
+        if($member instanceof PremiumMember) {
+            $f3->reroute('/interests');
+        }
+        else {
+            $f3->reroute('/display-profile');
+        }
     }
 
     $view = new Template();
@@ -146,19 +200,26 @@ $f3->route('GET|POST /profile', function($f3) {
 $f3->route('GET|POST /interests', function($f3) {
     $f3->set('page_title', 'Interests');
 
+    $member = $_SESSION['member'];
+
     if(isset($_POST['hidden'])) {
         //use hidden to submit without selections
         if(empty($_POST['interests'])) {
+            $member->setIndoorInterests('None selected');
+            $member->setOutdoorInterests('None selected');
             $f3->reroute('/display-profile');
         }
 
         $interests = $_POST['interests'];
         $f3->set("interestsCheck", $interests);
         if(validInterests($interests)) {
+
+
+
             //creating string of interests
             $interests_string = implode(', ', $interests);
-            trim($interests_string);
-            substr($interests_string, -1);
+            /*trim($interests_string);
+            substr($interests_string, -1);*/
 
             //save form info in session
             $_SESSION['interests'] = $interests_string;

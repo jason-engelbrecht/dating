@@ -60,10 +60,9 @@ Gather profile information
 
                     <div class="form-group bio">
                         <h5><label for="bio">Biography</label></h5>
-                        <textarea class="form-control" id="bio" rows="4" name="bio" placeholder="Tell us about yourself">
-                            <check if="isset(@SESSION.bio)">
-                                {{ @SESSION.bio }}
-                            </check>
+                        <textarea class="form-control" id="bio" rows="4" name="bio"
+                                  placeholder="Tell us about yourself"><check
+                                if="isset(@SESSION.bio)">{{ @SESSION.bio }}</check>
                         </textarea>
                     </div>
 

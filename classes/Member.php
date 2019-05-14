@@ -31,26 +31,16 @@ class Member
      * @param $lname string - Last name of member
      * @param $age int - Age of member
      * @param $phone int - Phone number of member
-     * @param $email int - Email of member
      * @param $gender string - Gender of member
-     * @param $state string - State member resides
-     * @param $seeking string - Gender preference of member
-     * @param $bio string - Bio of member
      * @return void
      */
-    function __construct($fname, $lname, $age, $phone, $email,
-                                $gender='Unselected', $state='United States',
-                                $seeking='Unselected', $bio='No bio yet')
+    function __construct($fname, $lname, $age, $phone, $gender)
     {
         $this->_fname = $fname;
         $this->_lname = $lname;
         $this->_age = $age;
         $this->_phone = $phone;
-        $this->_email = $email;
         $this->_gender = $gender;
-        $this->_state = $state;
-        $this->_seeking = $seeking;
-        $this->_bio = $bio;
     }
 
     /**

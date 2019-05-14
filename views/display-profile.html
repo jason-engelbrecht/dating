@@ -10,22 +10,22 @@ Display profile information after sign up
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <p class="text-center"><i class="fas fa-user-circle fa-10x"></i></p>
-                <h3 class="text-center mb-4">{{ @SESSION.fname }} {{ @SESSION.lname }}</h3>
+                <h3 class="text-center mb-4">{{ @SESSION.member->getFname() }} {{ @SESSION.member->getLname() }}</h3>
                 <h5>Biography</h5>
                 <p>
-                    {{ @SESSION.bio }}
+                    {{ @SESSION.member->getBio() }}
                 </p>
             </div>
 
            <div class="col-lg-6 col-md-12 col-sm-12 mt-5 mt-sm-3">
                 <ul class="list-group">
-                    <li class="list-group-item bg-light">Gender: {{ @SESSION.gender }}</li>
-                    <li class="list-group-item bg-light">Age: {{ @SESSION.age }}</li>
-                    <li class="list-group-item bg-light">Phone: {{ @SESSION.phone }}</li>
-                    <li class="list-group-item bg-light">Email: {{ @SESSION.email }}</li>
-                    <li class="list-group-item bg-light">State: {{ @SESSION.state }}</li>
-                    <li class="list-group-item bg-light">Seeking: {{ @SESSION.seeking }}</li>
-                    <li class="list-group-item bg-light">Interests: {{ @SESSION.interests}}</li>
+                    <li class="list-group-item bg-light">Gender: {{ @SESSION.member->getGender() }}</li>
+                    <li class="list-group-item bg-light">Age: {{ @SESSION.member->getAge() }}</li>
+                    <li class="list-group-item bg-light">Phone: {{ @SESSION.member->getPhone() }}</li>
+                    <li class="list-group-item bg-light">Email: {{ @SESSION.member->getEmail() }}</li>
+                    <li class="list-group-item bg-light">State: {{ @SESSION.member->getState() }}</li>
+                    <li class="list-group-item bg-light">Seeking: {{ @SESSION.member->getSeeking() }}</li>
+                    <li class="list-group-item bg-light">Interests: {{ @SESSION.interests }}</li>
                 </ul>
             </div>
         </div>
