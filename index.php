@@ -205,8 +205,8 @@ $f3->route('GET|POST /interests', function($f3) {
     if(isset($_POST['hidden'])) {
         //use hidden to submit without selections
         if(empty($_POST['interests'])) {
-            $member->setIndoorInterests('None selected');
-            $member->setOutdoorInterests('None selected');
+            $member->setIndoorInterests(array('None selected'));
+            $member->setOutdoorInterests(array('None selected'));
             $f3->reroute('/display-profile');
         }
 
