@@ -28,6 +28,7 @@ Gather profile information
                     <div class="form-group">
                         <h5><label for="state">State</label></h5>
                         <select class="form-control" id="state" name="state">
+                            <option value="none">--Select a State--</option>
                             <repeat group="{{ @states }}" value="{{ @state }}">
                                 <option value="{{ @state }}"
                                     <check if="{{isset(@SESSION.state) && @SESSION.state == @state }}">

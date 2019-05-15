@@ -11,8 +11,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //require autoload file and validation functions
-require_once("vendor/autoload.php");
-require('model/validation-functions.php');
+require_once'vendor/autoload.php';
+require'model/validation-functions.php';
 
 session_start();
 
@@ -20,15 +20,12 @@ session_start();
 $f3 = Base::instance();
 
 //set arrays
-$indoorInterests = array('Netflix', 'Movies', 'Puzzles',
-                         'Reading', 'Cooking', 'Tug-of-war',
-                         'Boardgames', 'Video Games');
-$outdoorInterests = array('Walking', 'Hiking', 'Swimming',
-                          'Beach Walks', 'Biking', 'Climbing',
-                          'Fetch', 'Dog Park');
-$f3->set('indoorInterests', $indoorInterests);
-$f3->set('outdoorInterests', $outdoorInterests);
-
+$f3->set('indoorInterests', array('Netflix', 'Movies', 'Puzzles',
+                                  'Reading', 'Cooking', 'Tug-of-war',
+                                  'Boardgames', 'Video Games'));
+$f3->set('outdoorInterests', array('Walking', 'Hiking', 'Swimming',
+                                   'Beach Walks', 'Biking', 'Climbing',
+                                   'Fetch', 'Dog Park'));
 $f3->set('states', array('Alabama','Alaska','Arizona','Arkansas','California',
                          'Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia',
                          'Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana',
@@ -41,7 +38,7 @@ $f3->set('states', array('Alabama','Alaska','Arizona','Arkansas','California',
 //turn on fat-free error reporting
 $f3->set('DEBUG', 3);
 
-//define a default root
+//define default root
 $f3->route('GET /', function($f3) {
     $f3->set('page_title', 'Home');
 
@@ -150,12 +147,12 @@ $f3->route('GET|POST /profile', function($f3) {
     }
 
     //get state
-    if(isset($_POST['state'])) {
-        define('STATE', $_POST['state']);
-        $_SESSION['state'] = $_POST['state'];
+    if($_POST['state'] == 'none') {
+        define('STATE', 'Unselected');
     }
     else {
-        define('STATE', 'Unselected');
+        define('STATE', $_POST['state']);
+        $_SESSION['state'] = $_POST['state'];
     }
 
     //get seeking
@@ -168,15 +165,17 @@ $f3->route('GET|POST /profile', function($f3) {
     }
 
     //get bio
-    if(isset($_POST['bio'])) {
+    if(strlen(trim($_POST['bio'])) < 1) {
+        define('BIO', 'Nothing yet');
+    }
+    else {
         define('BIO', $_POST['bio']);
         $_SESSION['bio'] = $_POST['bio'];
     }
-    else {
-        define('BIO', 'Nothing yet');
-    }
 
+    //email required
     if(defined('EMAIL')) {
+        //set fields for member
         $member = $_SESSION['member'];
         $member->setEmail(EMAIL);
         $member->setState(STATE);
@@ -184,6 +183,7 @@ $f3->route('GET|POST /profile', function($f3) {
         $member->setBio(BIO);
         $_SESSION['member'] = $member;
 
+        //check where to go next
         if($member instanceof PremiumMember) {
             $f3->reroute('/interests');
         }
@@ -191,7 +191,6 @@ $f3->route('GET|POST /profile', function($f3) {
             $f3->reroute('/display-profile');
         }
     }
-
     $view = new Template();
     echo $view->render('views/sign-up/profile.html');
 });
@@ -200,6 +199,7 @@ $f3->route('GET|POST /profile', function($f3) {
 $f3->route('GET|POST /interests', function($f3) {
     $f3->set('page_title', 'Interests');
 
+    //grab member object
     $member = $_SESSION['member'];
 
     if(isset($_POST['hidden'])) {
@@ -210,10 +210,11 @@ $f3->route('GET|POST /interests', function($f3) {
             $f3->reroute('/display-profile');
         }
 
+        //validate interests
         $interests = $_POST['interests'];
         $f3->set("interestsCheck", $interests);
         if(validInterests($interests)) {
-
+            //separate interests
             $tempIndoor = array();
             $tempOutdoor = array();
             foreach ($interests as $interest) {
@@ -224,17 +225,11 @@ $f3->route('GET|POST /interests', function($f3) {
                     array_push($tempOutdoor, $interest);
                 }
             }
+            //add them to premium member object
             $member->setIndoorInterests($tempIndoor);
             $member->setOutdoorInterests($tempOutdoor);
             $_SESSION['member'] = $member;
 
-            /*//creating string of interests
-            $interests_string = implode(', ', $interests);
-            /*trim($interests_string);
-            substr($interests_string, -1);
-
-            //save form info in session
-            $_SESSION['interests'] = $interests_string;*/
             $f3->reroute('/display-profile');
         }
         else {
@@ -242,15 +237,14 @@ $f3->route('GET|POST /interests', function($f3) {
         }
     }
     else {
-        $_SESSION['interests'] = "No interests selected";
+        //$_SESSION['interests'] = "No interests selected";
         $f3->set("interestsCheck", array(''));
     }
-
     $view = new Template();
     echo $view->render('views/sign-up/interests.html');
 });
 
-//final step in sign up, display profile page
+//display profile page
 $f3->route('GET|POST /display-profile', function($f3) {
     $f3->set('page_title', 'My Profile');
 

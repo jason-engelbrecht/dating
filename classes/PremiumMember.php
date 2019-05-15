@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: haro5
- * Date: 5/10/2019
- * Time: 1:18 PM
+ * Jason Engelbrecht
+ * 5.14.2019
+ * https://jengelbrecht.greenriverdev.com/it328/dating/
+ * PremiumMember class
  */
 
 /**
