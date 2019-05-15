@@ -38,8 +38,12 @@ Display profile information after sign up
                                             {{ @indoorInterest }},
                                     </repeat>
                                     <repeat group="{{ @SESSION.member->getOutdoorInterests() }}"
-                                            value="{{ @outdoorInterest }}">
-                                        {{ @outdoorInterest }},
+                                            value="{{ @outdoorInterest }}" counter="{{ @ctr }}">
+                                        {{ @outdoorInterest }}
+                                        <check if="{{ @ctr!=sizeof(@SESSION.member->getOutdoorInterests()) }}">
+                                            <true>, </true>
+                                            <false></false>
+                                        </check>
                                     </repeat>
                                 </li>
                             </false>
