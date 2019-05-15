@@ -25,7 +25,26 @@ Display profile information after sign up
                     <li class="list-group-item bg-light">Email: {{ @SESSION.member->getEmail() }}</li>
                     <li class="list-group-item bg-light">State: {{ @SESSION.member->getState() }}</li>
                     <li class="list-group-item bg-light">Seeking: {{ @SESSION.member->getSeeking() }}</li>
-                    <li class="list-group-item bg-light">Interests: {{ @SESSION.interests }}</li>
+                    <check if="{{ get_class(@SESSION.member) == 'PremiumMember' }}">
+                        <check if="{{ in_array('None selected', @SESSION.member->getIndoorInterests()) }}">
+                            <true>
+                                <li class="list-group-item bg-light">Interests: None selected</li>
+                            </true>
+                            <false>
+                                <li class="list-group-item bg-light">
+                                    Interests:
+                                    <repeat group="{{ @SESSION.member->getIndoorInterests() }}"
+                                            value="{{ @indoorInterest }}">
+                                            {{ @indoorInterest }},
+                                    </repeat>
+                                    <repeat group="{{ @SESSION.member->getOutdoorInterests() }}"
+                                            value="{{ @outdoorInterest }}">
+                                        {{ @outdoorInterest }},
+                                    </repeat>
+                                </li>
+                            </false>
+                        </check>
+                    </check>
                 </ul>
             </div>
         </div>

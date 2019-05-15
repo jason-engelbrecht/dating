@@ -173,7 +173,7 @@ $f3->route('GET|POST /profile', function($f3) {
         $_SESSION['bio'] = $_POST['bio'];
     }
     else {
-        define('BIO', 'No bio yet');
+        define('BIO', 'Nothing yet');
     }
 
     if(defined('EMAIL')) {
@@ -214,15 +214,27 @@ $f3->route('GET|POST /interests', function($f3) {
         $f3->set("interestsCheck", $interests);
         if(validInterests($interests)) {
 
+            $tempIndoor = array();
+            $tempOutdoor = array();
+            foreach ($interests as $interest) {
+                if(in_array($interest, $f3->get('indoorInterests'))) {
+                    array_push($tempIndoor, $interest);
+                }
+                else if(in_array($interest, $f3->get('outdoorInterests'))) {
+                    array_push($tempOutdoor, $interest);
+                }
+            }
+            $member->setIndoorInterests($tempIndoor);
+            $member->setOutdoorInterests($tempOutdoor);
+            $_SESSION['member'] = $member;
 
-
-            //creating string of interests
+            /*//creating string of interests
             $interests_string = implode(', ', $interests);
             /*trim($interests_string);
-            substr($interests_string, -1);*/
+            substr($interests_string, -1);
 
             //save form info in session
-            $_SESSION['interests'] = $interests_string;
+            $_SESSION['interests'] = $interests_string;*/
             $f3->reroute('/display-profile');
         }
         else {
