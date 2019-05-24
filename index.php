@@ -16,6 +16,8 @@ require'model/validation-functions.php';
 
 session_start();
 
+$db = new Database();
+
 //create an instance of the base class
 $f3 = Base::instance();
 
@@ -41,6 +43,12 @@ $f3->set('DEBUG', 3);
 //define default root
 $f3->route('GET /', function($f3) {
     $f3->set('page_title', 'Home');
+
+    /*global $db;
+    $interests = $db->getMembers();
+    foreach ($interests as $interest) {
+        echo $interest['fname'];
+    }*/
 
     //display a view
     $view = new Template();
@@ -248,8 +256,60 @@ $f3->route('GET|POST /interests', function($f3) {
 $f3->route('GET|POST /display-profile', function($f3) {
     $f3->set('page_title', 'My Profile');
 
+    //get member and db object
+    $member = $_SESSION['member'];
+    global $db;
+
+    //grab values for insertion
+    $fname = $member->getFname();
+    $lname = $member->getLname();
+    $age = $member->getAge();
+    $phone = $member->getPhone();
+    $email = $member->getEmail();
+    $gender = $member->getGender();
+    $state = $member->getState();
+    $seeking = $member->getSeeking();
+    $bio = $member->getBio();
+
+    //insert based on member type
+    if($member instanceof PremiumMember) {
+        $db->insertMember($fname, $lname, $age, $phone, $email,
+                          $gender, $state, $seeking, $bio, 1);
+
+        //get member id
+        $member_id = $db->getMemberID($fname, $lname);
+
+        //insert into member_interest
+        $interests = array_merge($member->getIndoorInterests(), $member->getOutdoorInterests());
+        foreach ($interests as $interest) {
+            $interest_id = $db->getInterestID($interest);
+            $db->insertMemberInterest($member_id['member_id'], $interest_id['interest_id']);
+        }
+    }
+    else {
+        $db->insertMember($fname, $lname, $age, $phone, $email,
+                          $gender, $state, $seeking, $bio, 0);
+    }
+
     $view = new Template();
     echo $view->render('views/display-profile.html');
+});
+
+//admin route
+$f3->route('GET /admin', function($f3) {
+    $f3->set('page_title', 'Admin');
+
+    //get members
+    global $db;
+    $members = $db->getMembers();
+
+    //set members and db for use in admin
+    $f3->set('members', $members);
+    $f3->set('db', $db);
+
+    //display a view
+    $view = new Template();
+    echo $view->render('views/admin.html');
 });
 
 //run fat-free
