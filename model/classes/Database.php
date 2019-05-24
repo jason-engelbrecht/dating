@@ -35,21 +35,35 @@
  */
 require '/home/jengelbr/config.php';
 
+/**
+ * Class representing a database
+ *
+ * This class represents a database object for interactions.
+ * @author Jason Engelbrecht
+ * @copyright 2019
+ */
 class Database
 {
     private $_db;
 
+    /**
+     * Database constructor
+     * @return void
+     */
     function __construct()
     {
         $this->connect();
     }
 
+    /**
+     * Connect to database
+     * @return PDO
+     */
     function connect()
     {
         try {
             //Instantiate a db object
             $this->_db = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-            //echo "Connected!!!";
             return $this->_db;
         }
         catch(PDOException $e) {
@@ -57,6 +71,21 @@ class Database
         }
     }
 
+    /**
+     * Insert a member
+     * @param $fname - first name
+     * @param $lname - last name
+     * @param $age - age
+     * @param $phone - phone number
+     * @param $email - email address
+     * @param string $gender - gender
+     * @param string $state - residing state
+     * @param string $seeking - gender seeking
+     * @param string $bio - bio
+     * @param int $premium - if premium member(1) or not(0)
+     * @param string $image - image path
+     * @return void
+     */
     function insertMember($fname, $lname, $age, $phone, $email,
                           $gender='Unselected',
                           $state='Unselected',
@@ -65,7 +94,7 @@ class Database
                           $premium=0,
                           $image='none')
     {
-         //define query
+        //define query
         $query = 'INSERT INTO member
                   (fname, lname, age, gender, phone, email, state, seeking, bio, premium, image)
                   VALUES
@@ -89,8 +118,89 @@ class Database
 
         //execute statement
         $statement->execute();
+        echo 'success';
     }
 
+    /**
+     * Insert a member-interest pair
+     * @param $member_id - member's id
+     * @param $interest_id - interest's id
+     */
+    function insertMemberInterest($member_id, $interest_id)
+    {
+        //define query
+        $query = 'INSERT INTO member_interest (member_id, interest_id)
+                  VALUES (:member_id, :interest_id)';
+
+        //prepare statement
+        $statement = $this->_db->prepare($query);
+
+        //bind parameters
+        $statement->bindParam(':member_id', $member_id, PDO::PARAM_STR);
+        $statement->bindParam(':interest_id', $interest_id, PDO::PARAM_STR);
+
+        //execute statement
+        $statement->execute();
+        echo 'success';
+    }
+
+    /**
+     * Get interest id with label
+     * @param $interest - interest label
+     * @return mixed
+     */
+    function getInterestID($interest)
+    {
+        //define query
+        $query = "SELECT interest_id FROM interest
+                  WHERE interest = :interest";
+
+        //prepare statement
+        $statement = $this->_db->prepare($query);
+
+        //bind parameters
+        $statement->bindParam(':interest', $interest);
+
+        //execute
+        $statement->execute();
+
+        //get result
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * Get member id with first and last name
+     * @param $fname - first name
+     * @param $lname - last name
+     * @return mixed
+     */
+    function getMemberID($fname, $lname)
+    {
+        //define query
+        $query = "SELECT member_id FROM member
+                  WHERE fname = :fname 
+                  AND lname = :lname";
+
+        //prepare statement
+        $statement = $this->_db->prepare($query);
+
+        //bind parameters
+        $statement->bindParam(':fname', $fname);
+        $statement->bindParam(':lname', $lname);
+
+        //execute
+        $statement->execute();
+
+        //get result
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * Get all members
+     * @return mixed
+     */
     function getMembers()
     {
         //define query
@@ -108,6 +218,11 @@ class Database
         return $results;
     }
 
+    /**
+     * Get member
+     * @param $member_id - member id
+     * @return mixed
+     */
     function getMember($member_id)
     {
         //define query
@@ -128,6 +243,11 @@ class Database
         return $result;
     }
 
+    /**
+     * Get interests for member
+     * @param $member_id - member id
+     * @return mixed
+     */
     function getInterests($member_id)
     {
         //define query
@@ -150,5 +270,4 @@ class Database
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
-
 }
