@@ -1,0 +1,63 @@
+<!--
+Jason Engelbrecht
+5.23.2019
+https://jengelbrecht.greenriverdev.com/it328/dating/
+Display all members
+-->
+<include href="views/includes/header.html"/>
+    <div class="container-fluid py-3">
+        <h1>Members</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">State</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Seeking</th>
+                <th scope="col">Premium</th>
+                <th scope="col">Interests</th>
+            </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{ @members }}" value="{{ @member }}">
+                    <tr>
+                        <th scope="row">{{ @member['member_id'] }}</th>
+                        <td>{{ @member['fname'] }} {{ @member['lname'] }}</td>
+                        <td>{{ @member['age'] }}</td>
+                        <td>{{ @member['phone'] }}</td>
+                        <td>{{ @member['email'] }}</td>
+                        <td>{{ @member['state'] }}</td>
+                        <td>{{ @member['gender'] }}</td>
+                        <td>{{ @member['seeking'] }}</td>
+
+                        <!-- get premium member icon -->
+                        <check if="{{ @member['premium'] == 0 }}">
+                            <true>
+                                <td><i class="far fa-square"></i></td>
+                            </true>
+                            <false>
+                                <td><i class="far fa-check-square"></i></td>
+                            </false>
+                        </check>
+
+                        <!-- get interests -->
+                        <td>
+                            <repeat group="{{ @db->getInterests(@member['member_id']) }}"
+                                    value="{{ @interest }}"
+                                    counter="{{ @ctr }}">
+                                    <check if="{{ @ctr!=sizeof(@db->getInterests(@member['member_id'])) }}">
+                                        <true>{{ @interest['interest'] }}, </true>
+                                        <false>{{ @interest['interest'] }}</false>
+                                    </check>
+                            </repeat>
+                        </td>
+                    </tr>
+                </repeat>
+            </tbody>
+        </table>
+    </div>
+<include href="views/includes/footer.html"/>
