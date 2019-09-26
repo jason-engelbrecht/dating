@@ -1,2 +1,2 @@
 # dating
-This is a dating application.
+Dating application built in-class. 
